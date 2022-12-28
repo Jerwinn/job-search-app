@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ListingController;
 use App\Models\Listing;
 use Illuminate\Support\Facades\Route;
 
@@ -14,15 +15,19 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('listings', [
-        'listings' => Listing::all()
-    ]);
-});
+//All Listings
+
+Route::get('/', [ListingController::class, 'index']);
+
+//Show create form
+Route::get('/listings/create', [ListingController::class, 'create']);
+
+//store Listing Data
+Route::post('/listings', [ListingController::class, 'store']);
 
 // Single Listing
-Route::get('/listings/{listing}', function(Listing $listing) {
-    return view('listing', [
-        'listing' => $listing
-    ]);
-});
+Route::get(
+    '/listings/{listing}',
+    [ListingController::class, 'show']
+);
+
