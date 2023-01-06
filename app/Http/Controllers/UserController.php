@@ -56,8 +56,12 @@ class UserController extends Controller
         ]);
 
         if(auth()->attempt($formFields)){
-            
+            $request->session()->regenerate();
+
+            return redirect('/')->with('message', 'You are now logged in!');
         }
+        return back()->withErrors(['email' => 'Invalid Credentials'])
+        ->onlyInput('email');
     }
 
 }
