@@ -73,9 +73,11 @@ class ListingController extends Controller
             $formFields['logo'] = $request->file('logo')->store('logos', 'public');
         }
 
+        $formFields['user_id'] = auth()->id();
+
         $listing->update($formFields);
 
-        return back()->with('message', 'listing created succesfully');
+        return redirect('/')->with('message', 'listing created succesfully');
     }
 
      // Delete Listing
